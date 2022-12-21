@@ -1,0 +1,54 @@
+<!-- thymeleaf 예제1: th:if th:unless 예제 -->
+<!-- thymeleaf 예제2: th:switch th:case 예제 -->
+
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1>상품 리스트 출력 예제</h1>
+
+<table border="1">
+    <thead>
+    <tr>
+        <td>순번</td>
+        <td>상품명</td>
+        <td>상품설명</td>
+        <td>가격</td>
+        <td>상품등록일</td>
+    </tr>
+    </thead>
+
+    <!-- th:if th:unless 자바의 조건문 itemDtoList의 인덱스가 짝/홀의 조건에 따라 출력 변경 -->
+<!--    <tbody>-->
+<!--    <tr th:each="itemDto, status: ${itemDtoList}">-->
+<!--        <td th:if="${status.even}" th:text="짝수"></td>-->
+<!--        <td th:unless="${status.even}" th:text="홀수"></td>-->
+<!--        <td th:text="${itemDto.itemName}"></td>-->
+<!--        <td th:text="${itemDto.itemDetail}"></td>-->
+<!--        <td th:text="${itemDto.price}"></td>-->
+<!--        <td th:text="${itemDto.regTime}"></td>-->
+<!--    </tr>-->
+<!--    </tbody>-->
+
+    <!-- th:switch th:case 자바의 조건문 여러 개의 조건을 처리해야 할 떄 사용 -->
+    <tbody>
+    <tr th:each="itemDto, status: ${itemDtoList}">
+        <td th:switch="${status.even}">
+            <span th:case=true>짝수</span>
+            <span th:case=false>홀수</span>
+        </td>
+        <td th:text="${itemDto.itemName}"></td>
+        <td th:text="${itemDto.itemDetail}"></td>
+        <td th:text="${itemDto.price}"></td>
+        <td th:text="${itemDto.regTime}"></td>
+    </tr>
+    </tbody>
+</table>
+
+</body>
+</html>

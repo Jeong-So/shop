@@ -1,0 +1,29 @@
+<!-- thymeleaf 예제: th:href 예제 -->
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1>Thymeleaf 링크처리 예제 페이지</h1>
+
+<!-- Context-relative URL : 상대경로 링크, 우리가 실행하는 애플리케이션의 서버 내부를 이동하는 방법, /에 상대적인 URL 입력, 상대경로는 URL의 프로토콜이나 호스트 이름 지정하지 않음 -->
+<div>
+    <a th:href="@{/thymeleaf/ex01}">예제1 페이지 이동</a>
+</div>
+
+<!-- Absolute URL : http:// https:// 로 시작하는 절대경로 링크  -->
+<div>
+    <a th:href="@{https://www.thymeleaf.org/}">thymeleaf 공식 페이지 이동</a>
+</div>
+
+<!-- 해당 링크로 이동 시 파라미터값을 전달하는 경우 처리 -->
+<div>
+    <a th:href="@{/thymeleaf/ex06(param1 = '파라미터 데이터1', param2 = '파라미터 데이터2')}">thymeleaf 파라미터 전달</a>
+</div>
+
+</body>
+</html>

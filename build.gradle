@@ -33,8 +33,10 @@ dependencies {
 	// querydsl dependencies 추가
 	implementation "com.querydsl:querydsl-jpa:5.0.0"
 	implementation "com.querydsl:querydsl-apt:5.0.0"
-	// Spring Boot Devtools 의존서 추가
+	// Spring Boot Devtools 의존성 추가
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
+	// thymeleaf layout dialect 의존성 추가
+	implementation group: 'nz.net.ultraq.thymeleaf', name: 'thymeleaf-layout-dialect', version: '2.5.3'
 }
 
 tasks.named('test') {
