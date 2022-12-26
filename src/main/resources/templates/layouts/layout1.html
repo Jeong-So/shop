@@ -5,18 +5,26 @@
 
 <head>
     <meta charset="UTF-8">
+
+<!--  Bootstrap 사용을 위한 소스 추가  -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    <link th:href="@{/css/layout1.css}" rel="stylesheet">
+
     <title>Title</title>
 
     <th:block layout:fragment="script"></th:block>
     <th:block layout:fragment="css"></th:block>
 </head>
 <body>
+<!--  Bootstrap 사용을 위한 js 소스 추가  -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
 
 <!-- th:replace 해당 속성이 선언된 html 태그를 다른 html 파일로 치환 -->
 <!-- fragments 폴더 안 설정한 html 파일의 "th:fragment = " 영역을 가져옴 -->
     <div th:replace="fragments/header::header"></div>
 <!-- layout 영역과 마찬가지로 fragment로 설정 : 본문 -->
-    <div layout:fragment="content">
+    <div layout:fragment="content" class="content">
 
     </div>
     <div th:replace="fragments/footer::footer"></div>
