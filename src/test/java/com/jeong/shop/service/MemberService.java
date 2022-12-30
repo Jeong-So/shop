@@ -13,9 +13,10 @@ import org.springframework.test.context.TestPropertySource;
 import org.springframework.transaction.annotation.Transactional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @SpringBootTest
-@Transactional
+@Transactional  // 테스트 실행 후 롤백 처리, 이를 통해 같은 메소드를 반복적으로 테스트 가능
 @TestPropertySource(locations="classpath:application-test.properties")
 class MemberServiceTest {
 
@@ -29,14 +30,14 @@ class MemberServiceTest {
 
         MemberFormDto memberFormDto = new MemberFormDto();
 
-        memberFormDto.setUserId("panda9404");
+        memberFormDto.setUsername("panda9404");
         memberFormDto.setPassword("1234");
         memberFormDto.setName("소유정");
         memberFormDto.setPhoneNum("010-9777-9404");
         memberFormDto.setEmail("panda9404@naver.com");
         memberFormDto.setAddress("서울시 노원구");
 
-        return MemberEntity.createMember(memberFormDto, passwordEncoder);
+        return MemberFormDto.createMemberEntity(memberFormDto, passwordEncoder);
     }
 
     @Test
@@ -45,12 +46,28 @@ class MemberServiceTest {
         MemberEntity member = createMember();
         MemberEntity savedMember = memberService.saveMember(member);
 
-        assertEquals(member.getUserId(), savedMember.getUserId());
+        assertEquals(member.getUsername(), savedMember.getUsername());
         assertEquals(member.getPassword(), savedMember.getPassword());
         assertEquals(member.getName(), savedMember.getName());
         assertEquals(member.getPhoneNum(), savedMember.getPhoneNum());
         assertEquals(member.getEmail(), savedMember.getEmail());
         assertEquals(member.getAddress(), savedMember.getAddress());
+
+    }
+
+    @Test
+    @DisplayName("중복 회원가입 테스트")
+    public void saveDuplicateMemberTest(){
+        MemberEntity member1 = createMember();
+        MemberEntity member2 = createMember();
+        memberService.saveMember(member1);
+
+        Throwable e = assertThrows(IllegalStateException.class, () -> {
+            memberService.saveMember(member2);
+        });
+
+        assertEquals("이미 가입된 회원입니다.", e.getMessage());
+
     }
 
 }
