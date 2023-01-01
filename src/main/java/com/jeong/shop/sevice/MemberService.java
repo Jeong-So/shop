@@ -3,6 +3,10 @@ package com.jeong.shop.sevice;
 import com.jeong.shop.entity.MemberEntity;
 import com.jeong.shop.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -11,7 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @Transactional  // 로직 처리 중 에러 발생 시 변경된 데이터를 로직 수행 이전 상태로 콜백
 @RequiredArgsConstructor  // final이나 @NonNull이 붙은 필드에 생성자를 생성
-public class MemberService {
+public class MemberService implements UserDetailsService {
 
     private final MemberRepository memberRepository;
 
@@ -29,4 +33,18 @@ public class MemberService {
     }
 
 
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        MemberEntity member = memberRepository.findByUsername(username);
+
+        if(member == null){
+            throw new UsernameNotFoundException(username);
+        }
+
+        return User.builder()
+                .username(member.getUsername())
+                .password(member.getPassword())
+                .roles(member.getRole().toString())
+                .build();
+    }
 }

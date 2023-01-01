@@ -14,9 +14,9 @@ public class ShopApplication {
 		SpringApplication.run(ShopApplication.class, args);
 	}
 
-	@GetMapping(value = "/")
-	public String home() {
-		return "hello world";
-	}
+//	@GetMapping(value = "/")
+//	public String home() {
+//		return "Hello World";
+//	}
 
 }
